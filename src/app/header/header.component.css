@@ -1,0 +1,11 @@
+.right {
+  position: absolute;
+  right: 0;
+}
+.right span {
+  margin: 0 40px;
+  cursor: pointer;
+}
+span.active {
+  color: #ff1caa;
+}

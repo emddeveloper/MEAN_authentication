@@ -1,5 +1,21 @@
 <p>
   <mat-toolbar color="primary">
-    <span>My Authentication App</span>
+    <span routerLink="/">My Authentication App</span>
+    <div class="right">
+      <span *ngIf="currentUser">Welcome {{ currentUser.userid }}</span>
+      <span routerLink="/login" *ngIf="!currentUser" routerLinkActive="active"
+        >Login</span
+      >
+      <span routerLink="/signup" *ngIf="!currentUser" routerLinkActive="active"
+        >Signup</span
+      >
+      <span (click)="logout()" *ngIf="currentUser">Logout</span>
+      <span
+        routerLink="/dashboard"
+        *ngIf="currentUser"
+        routerLinkActive="active"
+        >Dashboard</span
+      >
+    </div>
   </mat-toolbar>
 </p>
