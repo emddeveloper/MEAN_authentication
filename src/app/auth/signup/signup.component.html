@@ -1,5 +1,6 @@
 <mat-card>
   <h2 mat-card-title>Signup Form</h2>
+  <mat-error *ngIf="isError">{{ message }}</mat-error>
   <div class="login-box">
     <form
       class="example-form"

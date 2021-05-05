@@ -12,6 +12,8 @@ import { AuthModule } from './auth/auth.module';
 import { AuthRoutingModule } from './auth/auth-routing.module';
 
 import { WelcomeComponent } from './welcome/welcome.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptor } from './helper/error.interceptor';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, WelcomeComponent],
@@ -25,7 +27,9 @@ import { WelcomeComponent } from './welcome/welcome.component';
     AuthModule,
     AuthRoutingModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

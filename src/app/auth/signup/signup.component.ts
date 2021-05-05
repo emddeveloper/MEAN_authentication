@@ -11,21 +11,27 @@ import { AuthService } from '../auth.service';
 })
 export class SignupComponent {
   constructor(private authservice: AuthService, private router: Router) {}
-  message: {};
+  message = 'ss';
+  isError: boolean;
   signupForm = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
   });
   _signupSubmit() {
-    this.authservice
-      ._callSignupService(this.signupForm.value)
-      .subscribe((result: { _message: ''; isError: boolean }) => {
-        this.message = result._message;
+    this.authservice._callSignupService(this.signupForm.value).subscribe(
+      (result: { _message: string; isError: boolean }) => {
         if (result.isError) {
+          this.isError = true;
+          this.message = result._message;
           this.router.navigate(['/signup']);
         }
         this.router.navigate(['/login']);
-        console.log(result);
-      });
+      },
+      (error) => {
+        this.isError = true;
+        this.message = error.statusText;
+        this.router.navigate(['/signup']);
+      }
+    );
   }
 }
