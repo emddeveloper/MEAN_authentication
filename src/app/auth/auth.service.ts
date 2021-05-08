@@ -42,4 +42,15 @@ export class AuthService {
     localStorage.removeItem('currentUser_local');
     this.currentUserSubject.next(null);
   }
+  _callGetUserService(id: number) {
+    return this.http
+      .post(environment.BACKEND_URL + 'user/currentuser', { id: id })
+      .pipe(
+        map((user: any) => {
+          console.log(`getcurrentuser ${user}`);
+          delete user.data.password;
+          return user;
+        })
+      );
+  }
 }

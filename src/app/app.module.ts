@@ -14,6 +14,7 @@ import { AuthRoutingModule } from './auth/auth-routing.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from './helper/error.interceptor';
+import { JwtInterceptor } from './helper/jwt.interceptor';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, WelcomeComponent],
@@ -29,6 +30,7 @@ import { ErrorInterceptor } from './helper/error.interceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

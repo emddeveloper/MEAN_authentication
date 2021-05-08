@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const user = require("../models/user");
 
 const User = require("../models/user");
 
@@ -64,6 +65,21 @@ exports.userLogin = (req, res, next) => {
         _message: "Invalid authentication credentials!",
         isError: true,
         catchError: true,
+      });
+    });
+};
+
+exports.getUserById = (req, res, next) => {
+  console.log(req.body.userData);
+  User.findById(req.body.id)
+    .then((result) => {
+      //console.log(result);
+      res.status(200).json({ data: result });
+    })
+    .catch((err) => {
+      res.status(404).json({
+        _message: "Something went wrong",
+        isError: true,
       });
     });
 };

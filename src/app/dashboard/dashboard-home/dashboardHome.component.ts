@@ -10,8 +10,15 @@ import { User } from 'src/app/auth/user.data.model';
 export class DashboardHome {
   constructor(private authservice: AuthService) {}
   currentUser: User;
+  currentUserFromServer: any;
   ngOnInit() {
     this.authservice.currentUser.subscribe((user) => (this.currentUser = user));
     console.log(this.currentUser);
+    this.getCurrentUser();
+  }
+  getCurrentUser() {
+    this.authservice
+      ._callGetUserService(this.currentUser.userid)
+      .subscribe((user) => (this.currentUserFromServer = user));
   }
 }
